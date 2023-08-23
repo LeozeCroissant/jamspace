@@ -1,23 +1,43 @@
-import logo from './logo.svg';
 import './App.css';
+import {useState} from 'react';
+import {data} from './data';
+import Users from "./Users";
+import DepartmentDropdown from './departmentDropdown';
 
 function App() {
+  const [selectedDepartment, setSelectedDepartment] = useState('');
+  const [filteredUsers, setFilteredUsers] = useState([]); // Filtered list of users
+
+  const handleDepartmentChange = (departmentCode) => {
+    //console.log('handleDepartmentChange called with departmentCode:', departmentCode);
+    setSelectedDepartment(departmentCode);
+
+
+    const usersInDepartment = data.filter(user =>
+      user.departments.toString().includes(selectedDepartment)
+    );
+    setFilteredUsers(usersInDepartment);
+
+    console.log(filteredUsers);
+
+
+  };
+
+  useEffect(() => {
+    // Update the document title using the browser API
+    console.log('maVariable a changé :', users);
+  }, [users]);
+  
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Menu déroulant des départements</h1>
       </header>
+      <main>
+        {/* Utilisation du composant DepartmentDropdown */}
+        <DepartmentDropdown onChange={handleDepartmentChange} />
+      </main>
+      <Users users={filteredUsers}/>
     </div>
   );
 }
