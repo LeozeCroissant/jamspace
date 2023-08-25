@@ -1,23 +1,17 @@
 import './App.css';
-import { useEffect } from 'react';
-//import {data} from './data';
 
 const Users = ({ users }) => {
-  useEffect(() => {
-    // Update the document title using the browser API
-    console.log('maVariable a changé :', users);
-  }, [users]);
-
   return (
-    <div>
-      <h2>User List</h2>
-      <ul>
+    <div className='user-container'>
+      <div className='title'>Liste d'utilisateurs</div>
+      
+      <div className='user-list'>
         {users.map(user => (
-          <div key={user.id}>{user.name}</div>
+          <div className='user' key={user.id}>{user.name}</div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
 
-  export default Users;
+export default Users;
